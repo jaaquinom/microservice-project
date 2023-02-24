@@ -5,19 +5,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "proveedores")
-public class Proveedor {
+@Table(name = "productos")
+public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "nombre")
     private String nombre;
-    @Column(name = "productos")
-    private List<Producto> productos;
+    @Column(name = "cantidad")
+    private Integer cantidad;
+
 }
