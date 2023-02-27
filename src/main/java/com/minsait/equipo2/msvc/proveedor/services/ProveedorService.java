@@ -5,13 +5,24 @@ import com.minsait.equipo2.msvc.proveedor.models.Proveedor;
 import java.util.List;
 
 public interface ProveedorService {
-    Proveedor findById(Long idProveedor);
+    /**
+     * Métodos Proveedor
+     */
+    List<Proveedor> findAll();
+    Proveedor findById(Long id);
+    boolean deletedById(Long id);
+    Proveedor save(Proveedor proveedor);
+    Integer revisarInventario(Long id);
+    boolean pedido(Long id, Integer cantidad);
+    Integer totalPedidos(Long id);
+    Proveedor info(Long id);
 
-    List<Producto> revisarInventario(Long idProveedor);
-
-    boolean vender(Long idProveedor, Producto producto, Integer cantidad);
-
-    boolean deletedById(Long idProveedor);
-
-    Proveedor guardar(Proveedor proveedor);
+    /**
+     * Métodos Producto
+     */
+    List<Producto> findAllProductos();
+    Producto findProductoById(Long id);
+    boolean deletedProductoById(Long id);
+    Producto save(Producto producto);
+    Integer totalProductos(Long id);
 }

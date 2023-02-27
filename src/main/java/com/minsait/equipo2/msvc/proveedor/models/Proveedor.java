@@ -4,20 +4,26 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
+import java.io.Serializable;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "proveedores")
-public class Proveedor {
+public class Proveedor implements Serializable {
+    static private final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "nombre")
     private String nombre;
-    @Column(name = "productos")
-    private List<Producto> productos;
+    @Column(name = "cantidad")
+    private Integer cantidad_productos;
+    @Column(name = "pedidos")
+    private Integer pedidos;
+
+    public Integer consultarCantidad(){
+        return  this.cantidad_productos;
+    }
 }
