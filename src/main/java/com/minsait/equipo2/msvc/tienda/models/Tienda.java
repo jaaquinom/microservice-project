@@ -26,13 +26,19 @@ public class Tienda implements Serializable {
     private Producto cantidadProducto;*/
     @Column(name = "cantidad_productos")
     private Integer cantidadProductos;
+    @Column(name = "envios")
+    private int envios;
 
-   /* public void ventaProducto(Integer cantidadEnviada){
-        cantidadProducto.restarCantidadProducto(cantidadEnviada);
+   public void ventaProducto(Integer cantidadEnviada){
+        //cantidadProducto.restarCantidadProducto(cantidadEnviada);
     }
     public void compraInsumos(Integer cantidadPedida){
-        cantidadProducto.sumarCantidadInsumo(cantidadPedida);
+        //cantidadProducto.sumarCantidadInsumo(cantidadPedida);
     }
-*/
+    public Integer cantidadDeProductos(){
+       this.cantidadProductos = 0;
+       return  cantidadProductos;
+    }
+
 
 }
