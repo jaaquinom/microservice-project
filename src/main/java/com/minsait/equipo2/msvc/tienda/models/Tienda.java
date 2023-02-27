@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Data
@@ -29,16 +30,15 @@ public class Tienda implements Serializable {
     @Column(name = "envios")
     private int envios;
 
-   public void ventaProducto(Integer cantidadEnviada){
-        //cantidadProducto.restarCantidadProducto(cantidadEnviada);
+   public void envio(List<Producto> producto){
+
+        Producto productoN = producto.get(0);
+        productoN.restarCantidadProducto(productoN.getCantidadProducto());
     }
-    public void compraInsumos(Integer cantidadPedida){
-        //cantidadProducto.sumarCantidadInsumo(cantidadPedida);
+    public void pedido(){
+        List<Producto> insumo;
     }
-    public Integer cantidadDeProductos(){
-       this.cantidadProductos = 0;
-       return  cantidadProductos;
-    }
+
 
 
 }

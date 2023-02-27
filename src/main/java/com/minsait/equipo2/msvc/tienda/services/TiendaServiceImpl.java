@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,5 +60,12 @@ public class TiendaServiceImpl implements TiendaService{
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<Producto> envio(List<Producto> listProduct, Long idTienda) {
+        Tienda tienda = tiendaRepository.findById(idTienda).get();
+        tienda.envio(listProduct);
+        return listProduct;
     }
 }
