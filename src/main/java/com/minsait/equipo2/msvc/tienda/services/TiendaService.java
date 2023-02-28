@@ -17,6 +17,6 @@ public interface TiendaService {
 
     boolean deleteById(Long idProducto);
 
-    boolean envioDiferente(List<Producto> listProduct);
+    Integer envioDiferente(List<Producto> listProduct);
 
 }

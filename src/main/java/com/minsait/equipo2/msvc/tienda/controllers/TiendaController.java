@@ -78,13 +78,27 @@ public class TiendaController {
     public ResponseEntity<?> envio(@RequestBody List<Producto> listaProducto){
         //tiendaService.envioDiferente(listaProducto);
         Map<String,Object> response = new HashMap<>();
-        if(tiendaService.envioDiferente(listaProducto)){
+        if(listaProducto.size()==0){
+            response.put("status", "OK");
+            response.put("mensaje", "Pedido vacio");
+            return new ResponseEntity<>(response, HttpStatus.OK);//git
+        }
+
+        if(tiendaService.envioDiferente(listaProducto) == 3){
             response.put("status", "OK");
             response.put("mensaje", "Producto descontado");
             return new ResponseEntity<>(response, HttpStatus.OK);//git
+        }else if(tiendaService.envioDiferente(listaProducto) == 2){
+            response.put("status", "OK");
+            response.put("mensaje", "Producto insuficiente");
+            return new ResponseEntity<>(response, HttpStatus.OK);//git
+        }else if(tiendaService.envioDiferente(listaProducto) == 1){
+            response.put("status", "OK");
+            response.put("mensaje", "Producto no encontrado");
+            return new ResponseEntity<>(response, HttpStatus.OK);//git
         }
         response.put("status", "OK");
-        response.put("mensaje", "Producto insuficiente");
+        response.put("mensaje", "");
         return new ResponseEntity<>(response, HttpStatus.OK);//git
     }
 

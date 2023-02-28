@@ -64,13 +64,17 @@ public class TiendaServiceImpl implements TiendaService{
     }
 
     @Override
-    public boolean envioDiferente(List<Producto> listProduct) {
+    public Integer envioDiferente(List<Producto> listProduct) {
         Producto producto;
         for (Producto produc: listProduct) {
             int pedido = produc.getCantidadProducto();
-            int existencia = productoRepository.findById(produc.getId()).get().getCantidadProducto();
+            Optional<Producto> p = productoRepository.findById(produc.getId());
+            if (p.isEmpty())
+                return 1;
+
+            int existencia = p.get().getCantidadProducto();
             if(existencia > pedido){
-                productoRepository.findById(produc.getId()).get().setCantidadProducto(existencia - pedido);
+                p.get().setCantidadProducto(existencia - pedido);
 
                 producto = findById(produc.getId());
                 productoRepository.save(producto);
@@ -78,12 +82,9 @@ public class TiendaServiceImpl implements TiendaService{
                 tiendaRepository.findById(1L).get().envio();
 
             }else {
-                return false;
+                return 2;
             }
-
-
         }
-
-        return true;
+        return 3;
     }
 }
