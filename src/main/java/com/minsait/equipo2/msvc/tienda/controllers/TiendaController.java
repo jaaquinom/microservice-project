@@ -74,10 +74,10 @@ public class TiendaController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/{id}/envio")
-    public ResponseEntity<?> envio(@RequestBody List<Producto> listaProducto,@PathVariable("id") Long idTienda){
-        tiendaService.envio(listaProducto, idTienda);
-        return new ResponseEntity<>(listaProducto, HttpStatus.OK);
+    @PostMapping("/envio")
+    public ResponseEntity<?> envio(@RequestBody List<Producto> listaProducto){
+        tiendaService.envioDiferente(listaProducto);
+        return new ResponseEntity<>(listaProducto, HttpStatus.OK);//git
     }
 
 

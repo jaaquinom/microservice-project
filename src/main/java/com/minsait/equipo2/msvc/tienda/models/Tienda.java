@@ -34,6 +34,7 @@ public class Tienda implements Serializable {
 
         Producto productoN = producto.get(0);
         productoN.restarCantidadProducto(productoN.getCantidadProducto());
+        this.envios+=1;
     }
     public void pedido(){
         List<Producto> insumo;

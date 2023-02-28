@@ -31,6 +31,7 @@ public class TiendaServiceImpl implements TiendaService{
 
     @Override
     public Tienda info(Long idTienda){
+
         int cantidadProducto = productoRepository.findAll().size();
         tiendaRepository.findById(idTienda).get().setCantidadProductos(cantidadProducto);
         return tiendaRepository.findById(idTienda).get();
@@ -63,9 +64,21 @@ public class TiendaServiceImpl implements TiendaService{
     }
 
     @Override
-    public List<Producto> envio(List<Producto> listProduct, Long idTienda) {
-        Tienda tienda = tiendaRepository.findById(idTienda).get();
-        tienda.envio(listProduct);
-        return listProduct;
+    public List<Producto> envioDiferente(List<Producto> listProduct) {
+        List<Producto> lista = listProduct;
+        int pedido = lista.get(0).getCantidadProducto();
+        System.out.println("pedido = " + pedido);
+
+        int existencia = productoRepository.findById(1L).get().getCantidadProducto();
+        System.out.println("existencia = " + existencia);
+
+        productoRepository.findById(1L).get().setCantidadProducto(existencia - pedido);
+        System.out.println(existencia - pedido);
+
+
+        Producto producto = findById(1L);
+        productoRepository.save(producto);
+        System.out.println("producto = " + producto);
+        return lista;
     }
 }
