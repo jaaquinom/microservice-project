@@ -20,15 +20,12 @@ public class Producto {
     @Column(name = "cantidad")
     private Integer cantidad;
 
-    public Integer consultarCantidad(){
-        return this.cantidad;
-    }
-
     public void restarCantidad(Integer monto){
-        Integer total_actual = this.cantidad-monto;
+        Integer total_actual = this.cantidad - monto;
         if(total_actual < 0){
             throw new ProductoInsuficienteException("Producto insuficiente");
         }
         this.cantidad = total_actual;
+        //return this.cantidad;
     }
 }

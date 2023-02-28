@@ -6,9 +6,9 @@ import com.minsait.equipo2.msvc.proveedor.repositories.ProductoRepository;
 import com.minsait.equipo2.msvc.proveedor.repositories.ProveedorRepository;
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ProveedorServiceImpl implements ProveedorService {
@@ -17,6 +17,10 @@ public class ProveedorServiceImpl implements ProveedorService {
     @Autowired
     private ProductoRepository productoRepository;
 
+    /**
+     * Métodos Proveedor
+     */
+    /*
     @Override
     @Transactional(readOnly = true)
     public List<Proveedor> findAll() {
@@ -45,27 +49,12 @@ public class ProveedorServiceImpl implements ProveedorService {
         return proveedorRepository.save(proveedor);
     }
 
-
     @Transactional(readOnly = true)
     public Integer revisarInventario(Long id) {
         Proveedor proveedor = proveedorRepository.findById(id).orElseThrow();
         return proveedor.getCantidad_productos();
     }
-
-    public boolean pedido(Long id, Integer cantidad) {
-        if (proveedorRepository.findById(id).get().getCantidad_productos().equals(0)) {
-            return false;
-        } else if (proveedorRepository.findById(id).get().getCantidad_productos() < cantidad) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    @Override
-    public Integer totalPedidos(Long id) {
-        return proveedorRepository.findById(id).get().getPedidos();
-    }
+    */
 
     @Override
     public Proveedor info(Long id) {
@@ -73,6 +62,10 @@ public class ProveedorServiceImpl implements ProveedorService {
         proveedorRepository.findById(id).get().setCantidad_productos(total_producto);
         return proveedorRepository.findById(id).get();
     }
+
+    /**
+     * Métodos Producto
+     */
 
     @Override
     public List<Producto> findAllProductos() {
@@ -85,7 +78,7 @@ public class ProveedorServiceImpl implements ProveedorService {
     }
 
     @Override
-    public boolean deletedProductoById(Long id) {
+    public boolean deleteProductoById(Long id) {
         Optional<Producto> producto = productoRepository.findById(id);
         if (producto.isPresent()) {
             productoRepository.deleteById(id);
@@ -101,7 +94,28 @@ public class ProveedorServiceImpl implements ProveedorService {
     }
 
     @Override
-    public Integer totalProductos(Long id) {
-        return productoRepository.findById(id).get().getCantidad();
+    public boolean pedido(Producto productoPedido) {
+        int productoCantidad = productoPedido.getCantidad();
+        int existencia = productoRepository.findById(productoPedido.getId()).get().getCantidad();
+        Producto producto = findProductoById(productoPedido.getId());
+
+        if (existencia > productoCantidad){
+            productoRepository.findById(productoPedido.getId()).get().setCantidad(existencia - productoCantidad);
+            productoRepository.save(producto);
+            return true;
+        }
+        else return false;
+    }
+
+    @Override
+    public boolean pedidos(List<Producto> productosPedidos) {
+        boolean response = false;
+        for (Producto producto : productosPedidos){
+            response = pedido(producto);
+            if (!response){
+                return false;
+            }
+        }
+        return response;
     }
 }

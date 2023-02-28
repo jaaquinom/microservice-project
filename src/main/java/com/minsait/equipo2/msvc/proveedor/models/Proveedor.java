@@ -22,8 +22,4 @@ public class Proveedor implements Serializable {
     private Integer cantidad_productos;
     @Column(name = "pedidos")
     private Integer pedidos;
-
-    public Integer consultarCantidad(){
-        return  this.cantidad_productos;
-    }
 }

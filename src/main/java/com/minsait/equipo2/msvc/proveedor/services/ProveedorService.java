@@ -8,13 +8,13 @@ public interface ProveedorService {
     /**
      * Métodos Proveedor
      */
+    /*
     List<Proveedor> findAll();
     Proveedor findById(Long id);
     boolean deletedById(Long id);
     Proveedor save(Proveedor proveedor);
     Integer revisarInventario(Long id);
-    boolean pedido(Long id, Integer cantidad);
-    Integer totalPedidos(Long id);
+    */
     Proveedor info(Long id);
 
     /**
@@ -22,7 +22,8 @@ public interface ProveedorService {
      */
     List<Producto> findAllProductos();
     Producto findProductoById(Long id);
-    boolean deletedProductoById(Long id);
+    boolean deleteProductoById(Long id);
     Producto save(Producto producto);
-    Integer totalProductos(Long id);
+    boolean pedido(Producto productoPedido);
+    boolean pedidos(List<Producto> productosPedidos);
 }

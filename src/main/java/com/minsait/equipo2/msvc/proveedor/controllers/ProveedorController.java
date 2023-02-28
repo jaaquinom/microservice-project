@@ -3,7 +3,10 @@ package com.minsait.equipo2.msvc.proveedor.controllers;
 import com.minsait.equipo2.msvc.proveedor.models.Producto;
 import com.minsait.equipo2.msvc.proveedor.models.Proveedor;
 import com.minsait.equipo2.msvc.proveedor.services.ProveedorService;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +28,7 @@ public class ProveedorController {
     @Autowired
     private ProveedorService service;
 
-    /**
-     * Métodos Proveedor
-     */
+    /*
     @GetMapping("/listar")
     @ResponseStatus(HttpStatus.OK)
     public List<Proveedor> findAll(){
@@ -71,6 +72,7 @@ public class ProveedorController {
             return "Venta realizada con éxito";
         }else return "No se pudo realizar la venta";
     }
+     */
 
     /**
      * Métodos Producto
@@ -83,23 +85,83 @@ public class ProveedorController {
     }
 
     @GetMapping("/listarproductos/{id}")
-    public ResponseEntity<Producto> findProductoById(@PathVariable Long id) {
+    public ResponseEntity<?> findProductoById(@PathVariable Long id) {
+        Map<String, String> response = new HashMap<>();
         try {
             Producto producto = service.findProductoById(id);
             return ResponseEntity.ok(producto);
         } catch (NoSuchElementException e) {
-            return ResponseEntity.notFound().build();
+            response.put("status", "Not Found");
+            response.put("message","Not found");
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
     }
 
     @DeleteMapping("/borrarproducto/{id}")
-    public ResponseEntity<?> deletedProductoById(@PathVariable Long id) {
-        return service.deletedProductoById(id) ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+    public ResponseEntity<?> deleteProductoById(@PathVariable Long id) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            service.findProductoById(id);
+            service.deleteProductoById(id);
+            response.put("status", "OK");
+            response.put("message", "Deleted");
+            return ResponseEntity.ok(response);
+        }catch (NoSuchElementException e){
+            response.put("status", "Not Found");
+            response.put("message", "Not Found");
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping("/guardarproducto")
     @ResponseStatus(HttpStatus.CREATED)
     public Producto save(@RequestBody Producto producto) {
         return service.save(producto);
+    }
+    /*
+    @PostMapping("/pedido")
+    public ResponseEntity<?> pedido(@RequestBody Producto producto){
+        service.pedido(producto);
+        return ResponseEntity.ok(producto);
+    }
+    */
+    @PostMapping("/pedido")
+    public ResponseEntity<?> pedidos(@RequestBody List<Producto> producto){
+        Map<String, String> response = new HashMap<>();
+        if (producto.isEmpty()){
+            response.put("status", "Not Found");
+            response.put("message", "Pedido vacío");
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+        try {
+            if (service.pedidos(producto))
+                return ResponseEntity.ok(producto);
+            else {
+                response.put("status", "OK");
+                response.put("message", "Producto Insuficiente");
+                return ResponseEntity.ok(response);
+            }
+        }catch (NoSuchElementException e){
+            response.put("status", "Not Found");
+            response.put("message", "Not found");
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    /**
+     * Métodos Proveedor
+     */
+
+    @GetMapping("/info/{id}")
+    public ResponseEntity<?> info(@PathVariable Long id){
+        Map<String, String> response = new HashMap<>();
+        try {
+            Proveedor proveedor = service.info(id);
+            return ResponseEntity.ok(proveedor);
+        }catch (NoSuchElementException e){
+            response.put("status", "Not Found");
+            response.put("message", "Not found");
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
     }
 }
