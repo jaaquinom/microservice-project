@@ -30,10 +30,7 @@ public class Tienda implements Serializable {
     @Column(name = "envios")
     private int envios;
 
-   public void envio(List<Producto> producto){
-
-        Producto productoN = producto.get(0);
-        productoN.restarCantidadProducto(productoN.getCantidadProducto());
+   public void envio(){
         this.envios+=1;
     }
     public void pedido(){

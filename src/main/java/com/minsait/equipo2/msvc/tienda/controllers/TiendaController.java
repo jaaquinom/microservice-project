@@ -76,8 +76,16 @@ public class TiendaController {
 
     @PostMapping("/envio")
     public ResponseEntity<?> envio(@RequestBody List<Producto> listaProducto){
-        tiendaService.envioDiferente(listaProducto);
-        return new ResponseEntity<>(listaProducto, HttpStatus.OK);//git
+        //tiendaService.envioDiferente(listaProducto);
+        Map<String,Object> response = new HashMap<>();
+        if(tiendaService.envioDiferente(listaProducto)){
+            response.put("status", "OK");
+            response.put("mensaje", "Producto descontado");
+            return new ResponseEntity<>(response, HttpStatus.OK);//git
+        }
+        response.put("status", "OK");
+        response.put("mensaje", "Producto insuficiente");
+        return new ResponseEntity<>(response, HttpStatus.OK);//git
     }
 
 
