@@ -1,6 +1,6 @@
 package com.minsait.equipo2.msvc.tienda.models;
 
-import com.minsait.equipo2.msvc.tienda.exceptions.ProductoInsuficienteException;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,13 +25,4 @@ public class Producto implements Serializable {
 
     @Column(name = "cantidad_insumo")
     private Integer cantidadInsumo;
-
-    public Integer verCantidad(){
-        return this.cantidadProducto;
-    }
-
-    public void sumarCantidadInsumo(Integer cantidadInsumo){
-        this.cantidadInsumo = this.cantidadProducto + cantidadInsumo;
-    }
-
 }

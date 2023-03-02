@@ -1,6 +1,6 @@
 package com.minsait.equipo2.msvc.tienda.models;
 
-import com.minsait.equipo2.msvc.tienda.exceptions.ProductoInsuficienteException;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
