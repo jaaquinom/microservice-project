@@ -8,7 +8,5 @@ public class MsvcApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MsvcApplication.class, args);
-
 	}
-
 }

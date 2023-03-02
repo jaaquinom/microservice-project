@@ -16,4 +16,8 @@ class MsvcApplicationTests {
 
 	}
 
+	@Test
+	void testMain() {
+	}
+
 }
