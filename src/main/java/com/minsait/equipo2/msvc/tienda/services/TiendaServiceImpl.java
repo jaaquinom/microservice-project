@@ -37,15 +37,7 @@ public class TiendaServiceImpl implements TiendaService{
         return tiendaRepository.findById(idTienda).get();
     }
 
-    @Override
-    public Integer totalEnvios(Long idTienda) {
-        return tiendaRepository.findById(idTienda).get().getEnvios();
-    }
 
-    @Override
-    public Integer totalProductos(Long idTienda) {
-        return productoRepository.findById(idTienda).get().getCantidadProducto();
-    }
 
     @Override
     public Producto save(@RequestBody Producto producto) {

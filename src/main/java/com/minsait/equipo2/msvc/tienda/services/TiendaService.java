@@ -11,8 +11,7 @@ public interface TiendaService {
     List<Producto> findAll();
     Producto findById(Long idProducto);
      Tienda info(Long idTienda);
-    Integer totalEnvios(Long idTienda);
-    Integer totalProductos(Long idProducto);
+
     Producto save(Producto producto);
 
     boolean deleteById(Long idProducto);

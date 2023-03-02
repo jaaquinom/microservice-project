@@ -33,10 +33,6 @@ public class Tienda implements Serializable {
    public void envio(){
         this.envios+=1;
     }
-    public void pedido(){
-        List<Producto> insumo;
-    }
-
 
 
 }

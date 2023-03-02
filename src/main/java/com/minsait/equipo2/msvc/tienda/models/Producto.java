@@ -29,14 +29,7 @@ public class Producto implements Serializable {
     public Integer verCantidad(){
         return this.cantidadProducto;
     }
-    public Integer restarCantidadProducto(Integer cantidadProducto){
-        Integer nuevaCantidad = this.cantidadProducto - cantidadProducto;
-        if(nuevaCantidad < 0){
-            throw new ProductoInsuficienteException("Producto insuficiente");
-        }
-        this.cantidadProducto = nuevaCantidad;
-        return this.cantidadProducto;
-    }
+
     public void sumarCantidadInsumo(Integer cantidadInsumo){
         this.cantidadInsumo = this.cantidadProducto + cantidadInsumo;
     }
