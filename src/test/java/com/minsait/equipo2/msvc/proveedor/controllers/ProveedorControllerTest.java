@@ -1,10 +1,8 @@
-package com.minsait.equipo2.msvc.controllers;
+package com.minsait.equipo2.msvc.proveedor.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.minsait.equipo2.msvc.proveedor.controllers.ProveedorController;
 import com.minsait.equipo2.msvc.proveedor.models.Producto;
 import com.minsait.equipo2.msvc.proveedor.services.ProveedorService;
-import com.minsait.equipo2.msvc.tienda.exceptions.ProductoInsuficienteException;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +11,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.*;
 

@@ -1,6 +1,6 @@
-package com.minsait.equipo2.msvc.services;
+package com.minsait.equipo2.msvc.proveedor.services;
 
-import com.minsait.equipo2.msvc.controllers.Datos;
+import com.minsait.equipo2.msvc.proveedor.controllers.Datos;
 import com.minsait.equipo2.msvc.proveedor.models.Producto;
 import com.minsait.equipo2.msvc.proveedor.models.Proveedor;
 import com.minsait.equipo2.msvc.proveedor.repositories.ProductoRepository;
