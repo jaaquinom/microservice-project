@@ -6,7 +6,6 @@ import com.minsait.equipo2.msvc.proveedor.repositories.ProductoRepository;
 import com.minsait.equipo2.msvc.proveedor.repositories.ProveedorRepository;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -101,6 +100,7 @@ public class ProveedorServiceImpl implements ProveedorService {
 
         if (existencia > productoCantidad){
             productoRepository.findById(productoPedido.getId()).get().setCantidad(existencia - productoCantidad);
+            proveedorRepository.findById(1L).get().actualizarCantidadPedidos();
             productoRepository.save(producto);
             return true;
         }

@@ -118,6 +118,7 @@ public class ProveedorController {
     public Producto save(@RequestBody Producto producto) {
         return service.save(producto);
     }
+
     /*
     @PostMapping("/pedido")
     public ResponseEntity<?> pedido(@RequestBody Producto producto){
@@ -125,6 +126,7 @@ public class ProveedorController {
         return ResponseEntity.ok(producto);
     }
     */
+
     @PostMapping("/pedido")
     public ResponseEntity<?> pedidos(@RequestBody List<Producto> producto){
         Map<String, String> response = new HashMap<>();

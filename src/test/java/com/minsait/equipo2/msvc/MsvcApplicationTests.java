@@ -10,4 +10,8 @@ class MsvcApplicationTests {
 	void contextLoads() {
 	}
 
+	@Test
+	void testMain() {
+	}
+
 }
