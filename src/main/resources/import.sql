@@ -10,3 +10,7 @@ INSERT INTO productos(nombre_producto, cantidad_producto, cantidad_insumo) VALUE
 INSERT INTO productos(nombre_producto, cantidad_producto, cantidad_insumo) VALUES ('Codorniz Deshidratada', 10,20);
 
 INSERT INTO tienda(nombre_tienda, direccion_tienda, cantidad_productos,envios) VALUES ('Fernanda Garcia','Domicilio conccido',20,0);
+
+INSERT INTO clientes(nombre, direccion, pedidos) VALUES('Yamani', 'Estado de México', 0);
+INSERT INTO clientes(nombre, direccion, pedidos) VALUES('Jorge', 'Acapulco', 0);
+

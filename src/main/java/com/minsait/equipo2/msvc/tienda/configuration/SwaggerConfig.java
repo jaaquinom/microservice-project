@@ -1,4 +1,4 @@
-package com.minsait.equipo2.msvc.configuration;
+package com.minsait.equipo2.msvc.tienda.configuration;
 
 import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -13,8 +13,8 @@ public class SwaggerConfig {
     public OpenAPI springOpenAPI(){
         return new OpenAPI()
                 .addServersItem(new Server().url("/"))
-                .info(new Info().title("Proyecto Equipo 2")
-                        .description("Proveedor/Tienda/Cliente: Proyecto de Microservicios - Equipo 2")
+                .info(new Info().title("Tienda")
+                        .description("Prueba de tienda")
                         .version("0.0.1-SNAPSHOP"))
                 .externalDocs(new ExternalDocumentation()
                         .description("spingdoc-7")
