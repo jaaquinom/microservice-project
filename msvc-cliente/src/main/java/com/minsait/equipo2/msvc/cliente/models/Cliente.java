@@ -13,14 +13,13 @@ import java.io.Serializable;
 @Table(name = "clientes")
 public class Cliente implements Serializable {
     static private final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "nombre")
+    @Column(name = "nombre", nullable = false)
     private String nombre;
-    @Column(name = "direccion")
+    @Column(name = "direccion", nullable = false)
     private String direccion;
-    @Column(name = "pedidos")
+    @Column(name = "pedidos", nullable = false)
     private Integer cantidad_pedidos;
 }

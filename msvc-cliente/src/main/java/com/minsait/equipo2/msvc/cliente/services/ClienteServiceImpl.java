@@ -3,10 +3,10 @@ package com.minsait.equipo2.msvc.cliente.services;
 import com.minsait.equipo2.msvc.cliente.models.Cliente;
 import com.minsait.equipo2.msvc.cliente.models.Pedido;
 import com.minsait.equipo2.msvc.cliente.repositories.ClienteRepository;
-
 import com.minsait.equipo2.msvc.cliente.tiendaFeignClient.PedidoTienda;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,7 +14,6 @@ import java.util.Optional;
 public class ClienteServiceImpl implements ClienteService{
     @Autowired
     private ClienteRepository clienteRepository;
-
     @Autowired
     private PedidoTienda pedidoTienda;
 
@@ -44,10 +43,11 @@ public class ClienteServiceImpl implements ClienteService{
 
     @Override
     public List<Pedido> pedido(List<Pedido> pedido) {
-        List<Pedido> pedidoNuevo = pedidoTienda.envio(pedido);
-
-        return pedidoNuevo;
+        return pedidoTienda.envio(pedido);
     }
 
-
+    @Override
+    public List<Pedido> findAll() {
+        return pedidoTienda.findAll();
+    }
 }

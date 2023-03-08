@@ -19,41 +19,6 @@ public class ProveedorServiceImpl implements ProveedorService {
     /**
      * Métodos Proveedor
      */
-    /*
-    @Override
-    @Transactional(readOnly = true)
-    public List<Proveedor> findAll() {
-        return proveedorRepository.findAll();
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Proveedor findById(Long id) {
-        return proveedorRepository.findById(id).orElseThrow();
-    }
-
-    @Transactional
-    public boolean deletedById(Long id) {
-        Optional<Proveedor> proveedor = proveedorRepository.findById(id);
-        if (proveedor.isPresent()) {
-            proveedorRepository.deleteById(id);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    @Transactional
-    public Proveedor save(Proveedor proveedor) {
-        return proveedorRepository.save(proveedor);
-    }
-
-    @Transactional(readOnly = true)
-    public Integer revisarInventario(Long id) {
-        Proveedor proveedor = proveedorRepository.findById(id).orElseThrow();
-        return proveedor.getCantidad_productos();
-    }
-    */
 
     @Override
     public Proveedor info(Long id) {

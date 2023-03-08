@@ -2,7 +2,9 @@ package com.minsait.equipo2.msvc.cliente.services;
 
 import com.minsait.equipo2.msvc.cliente.controllers.Datos;
 import com.minsait.equipo2.msvc.cliente.models.Cliente;
+import com.minsait.equipo2.msvc.cliente.models.Pedido;
 import com.minsait.equipo2.msvc.cliente.repositories.ClienteRepository;
+import com.minsait.equipo2.msvc.cliente.tiendaFeignClient.PedidoTienda;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -17,12 +19,10 @@ import static org.mockito.Mockito.*;
 public class ClienteServiceImplTest {
     @Mock
     ClienteRepository clienteRepository;
+    @Mock
+    PedidoTienda pedidoTienda;
     @InjectMocks
     ClienteServiceImpl service;
-
-    @Test
-    void testInfo(){
-    }
 
     @Test
     void testFindAllClientes(){
@@ -59,5 +59,29 @@ public class ClienteServiceImplTest {
         when(clienteRepository.save(cliente)).thenReturn(cliente);
         Cliente clienteGuardado = service.save(cliente);
         assertEquals(clienteGuardado, cliente);
+    }
+
+    @Test
+    void testPedido(){
+        Pedido pedidoNuevo = new Pedido();
+        pedidoNuevo.setId(1L);
+        pedidoNuevo.setNombreProducto("Colita de cerdo");
+        pedidoNuevo.setCantidadProducto(10);
+        List<Pedido> listaPedido = List.of(pedidoNuevo);
+        when(pedidoTienda.envio(listaPedido)).thenReturn(listaPedido);
+        List<Pedido> pedidoReal = service.pedido(List.of(pedidoNuevo));
+        assertEquals(listaPedido, pedidoReal);
+    }
+
+    @Test
+    void testFindAllProductosTienda() {
+        Pedido pedidoNuevo = new Pedido();
+        pedidoNuevo.setId(1L);
+        pedidoNuevo.setNombreProducto("Colita de cerdo");
+        pedidoNuevo.setCantidadProducto(10);
+        List<Pedido> listaPedido = List.of(pedidoNuevo);
+        when(pedidoTienda.findAll()).thenReturn(listaPedido);
+        List<Pedido> pedidoReal = service.findAll();
+        assertEquals(listaPedido, pedidoReal);
     }
 }

@@ -2,7 +2,6 @@ package com.minsait.equipo2.msvc.proveedor.controllers;
 
 import com.minsait.equipo2.msvc.proveedor.models.Producto;
 import com.minsait.equipo2.msvc.proveedor.models.Proveedor;
-
 import java.util.Optional;
 
 public class Datos {

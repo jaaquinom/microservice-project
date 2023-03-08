@@ -11,9 +11,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-
 import java.util.*;
-
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -34,7 +32,7 @@ public class ProveedorControllerTest {
     @Test
     void testFindAllProductos() throws Exception{
         when(service.findAllProductos()).thenReturn(List.of(Datos.crearProducto1().get(), Datos.crearProducto2().get()));
-        mvc.perform(get("/proveedor/listarproductos").contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(get("/proveedor/listar_productos").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$[0].id").value(1))
                 .andExpect(jsonPath("$[1].id").value(2));
     }
@@ -42,7 +40,7 @@ public class ProveedorControllerTest {
     @Test
     void testFindProductoById() throws Exception{
         when(service.findProductoById(1L)).thenReturn(Datos.crearProducto1().get());
-        mvc.perform(get("/proveedor/listarproductos/1").contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(get("/proveedor/listar_productos/1").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(1))
@@ -53,7 +51,7 @@ public class ProveedorControllerTest {
     @Test
     void testFindProductoByIdIfNotFound() throws Exception{
         when(service.findProductoById(1L)).thenThrow(NoSuchElementException.class);
-        mvc.perform(get("/proveedor/listarproductos/1").contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(get("/proveedor/listar_productos/1").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
 
@@ -61,7 +59,7 @@ public class ProveedorControllerTest {
     void testDeleteProductoById() throws Exception{
         Long deleteProductoId = 1L;
         when(service.deleteProductoById(deleteProductoId)).thenReturn(true);
-        mvc.perform(delete("/proveedor/borrarproducto/{id}", deleteProductoId))
+        mvc.perform(delete("/proveedor/borrar_producto/{id}", deleteProductoId))
                 .andExpect(status().isOk());
     }
 
@@ -69,7 +67,7 @@ public class ProveedorControllerTest {
     void testDeleteProductoByIdIfNotFound() throws Exception{
         Long deleteProductoId = 1L;
         when(service.deleteProductoById(deleteProductoId)).thenThrow(NoSuchElementException.class);
-        mvc.perform(delete("/proveedor/borrarproducto/{id}", deleteProductoId))
+        mvc.perform(delete("/proveedor/borrar_producto/{id}", deleteProductoId))
                 .andExpect(status().isNotFound());
     }
 
@@ -81,7 +79,7 @@ public class ProveedorControllerTest {
             productoTemporal.setId(3L);
             return productoTemporal;
         });
-        mvc.perform(post("/proveedor/guardarproducto").contentType(MediaType.APPLICATION_JSON)
+        mvc.perform(post("/proveedor/guardar_producto").contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(producto)))
                         .andExpectAll(
                             jsonPath("$.id").value(3),
@@ -99,7 +97,7 @@ public class ProveedorControllerTest {
         productosPedido.add(producto1);
         productosPedido.add(producto2);
         when(service.pedidos(productosPedido)).thenReturn(true);
-        mvc.perform(post("/proveedor/pedido").contentType(MediaType.APPLICATION_JSON)
+        mvc.perform(post("/proveedor/envio").contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(productosPedido)))
                 .andExpectAll(
                         status().isOk(),
@@ -109,13 +107,13 @@ public class ProveedorControllerTest {
 
     @Test
     void testPedidoIfNotFound() throws Exception{
-        Producto producto1 = new Producto(1L, "Colita de cerdo", 20000);
-        Producto producto2 = new Producto(2L, "Oreja de cerdo", 50000);
+        Producto producto1 = new Producto(3L, "Patitas de pollo", 20);
+        Producto producto2 = new Producto(4L, "Hígado de res", 50);
         List<Producto> productosPedido = new ArrayList<>();
         productosPedido.add(producto1);
         productosPedido.add(producto2);
         when(service.pedidos(productosPedido)).thenThrow(NoSuchElementException.class);
-        mvc.perform(post("/proveedor/pedido").contentType(MediaType.APPLICATION_JSON)
+        mvc.perform(post("/proveedor/envio").contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(productosPedido)))
                 .andExpectAll(
                         status().isNotFound()
@@ -126,10 +124,23 @@ public class ProveedorControllerTest {
     void testPedidoVacio() throws Exception{
         List<Producto> productosPedido = new ArrayList<>();
         when(service.pedidos(productosPedido)).thenReturn(false);
-        mvc.perform(post("/proveedor/pedido").contentType(MediaType.APPLICATION_JSON)
+        mvc.perform(post("/proveedor/envio").contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(productosPedido)))
                 .andExpectAll(
-                        status().isNotFound()
+                        status().isOk()
+                );
+    }
+
+    @Test
+    void testPedidoProductoInsuficiente() throws Exception{
+        Producto producto1 = new Producto(1L, "Colita de cerdo", 200000000);
+        List<Producto> productosPedido = new ArrayList<>();
+        productosPedido.add(producto1);
+        when(service.pedidos(productosPedido)).thenReturn(false);
+        mvc.perform(post("/proveedor/envio").contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(productosPedido)))
+                .andExpectAll(
+                        status().isOk()
                 );
     }
 
@@ -137,14 +148,14 @@ public class ProveedorControllerTest {
     void testInfo() throws Exception{
         Long infoId = 1L;
         when(service.info(infoId)).thenReturn(Datos.crearProveedor().get());
-        mvc.perform(get("/proveedor/info/{id}", infoId).contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(get("/proveedor/informacion/{id}", infoId).contentType(MediaType.APPLICATION_JSON))
                 .andExpectAll(
                         status().isOk(),
                         content().contentType(MediaType.APPLICATION_JSON),
                         jsonPath("$.id").value(1),
                         jsonPath("$.nombre", Matchers.is("Insumos y materia prima")),
                         jsonPath("$.cantidad_productos").value(0),
-                        jsonPath("$.pedidos").value(0)
+                        jsonPath("$.envios").value(0)
                 );
     }
 
@@ -152,7 +163,7 @@ public class ProveedorControllerTest {
     void testInfoIfNotFound() throws Exception{
         Long infoId = 10L;
         when(service.info(infoId)).thenThrow(NoSuchElementException.class);
-        mvc.perform(get("/proveedor/info/{id}", infoId).contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(get("/proveedor/informacion/{id}", infoId).contentType(MediaType.APPLICATION_JSON))
                 .andExpectAll(
                         status().isNotFound()
                 );

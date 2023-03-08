@@ -16,14 +16,14 @@ public class Proveedor implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "nombre")
+    @Column(name = "nombre", nullable = false)
     private String nombre;
-    @Column(name = "cantidad")
+    @Column(name = "cantidad", nullable = false)
     private Integer cantidad_productos;
-    @Column(name = "pedidos")
-    private Integer pedidos;
+    @Column(name = "envios", nullable = false)
+    private Integer envios;
 
     public void actualizarCantidadPedidos(){
-        this.pedidos += 1;
+        this.envios += 1;
     }
 }

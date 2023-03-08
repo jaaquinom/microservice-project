@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Pedido {
-    private Long Id;
+    private Long id;
     private String nombreProducto;
     private Integer cantidadProducto;
 }

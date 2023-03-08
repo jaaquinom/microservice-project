@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,13 +20,13 @@ public class ClienteController {
     @Autowired
     private ClienteService service;
 
-    @GetMapping("/listar")
+    @GetMapping("/listar_clientes")
     @ResponseStatus(HttpStatus.OK)
     public List<Cliente> findAllClientes() {
         return service.findAllClientes();
     }
 
-    @GetMapping("/listar/{id}")
+    @GetMapping("/listar_cliente/{id}")
     public ResponseEntity<?> findClienteById(@PathVariable Long id) {
         Map<String, String> response = new HashMap<>();
         try {
@@ -40,7 +39,7 @@ public class ClienteController {
         }
     }
 
-    @DeleteMapping("/borrar/{id}")
+    @DeleteMapping("/borrar_cliente/{id}")
     public ResponseEntity<?> deleteClienteById(@PathVariable Long id) {
         Map<String, String> response = new HashMap<>();
         try {
@@ -56,19 +55,22 @@ public class ClienteController {
         }
     }
 
-    @PostMapping("/guardar")
+    @PostMapping("/guardar_cliente")
     public Cliente save(@RequestBody Cliente cliente){
         return service.save(cliente);
     }
 
-    @PostMapping("/tienda/pedir")
+    @PostMapping("/productos_en_tienda/pedir")
     public ResponseEntity<?> pedido(@RequestBody List<Pedido> pedido){
         Map<String, String> response = new HashMap<>();
         List<Pedido> pedidoNuevo = service.pedido(pedido);
-        response.put("status", "Pedido realizado");
+        response.put("status", "OK");
+        response.put("message", "Pedido realizado");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
-        return new ResponseEntity<>(response,HttpStatus.OK);
-
-
+    @GetMapping("/productos_en_tienda")
+    public List<Pedido> listar(){
+        return service.findAll();
     }
 }

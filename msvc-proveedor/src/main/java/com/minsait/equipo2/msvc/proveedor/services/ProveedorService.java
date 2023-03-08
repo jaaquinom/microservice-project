@@ -8,13 +8,7 @@ public interface ProveedorService {
     /**
      * Métodos Proveedor
      */
-    /*
-    List<Proveedor> findAll();
-    Proveedor findById(Long id);
-    boolean deletedById(Long id);
-    Proveedor save(Proveedor proveedor);
-    Integer revisarInventario(Long id);
-    */
+
     Proveedor info(Long id);
 
     /**

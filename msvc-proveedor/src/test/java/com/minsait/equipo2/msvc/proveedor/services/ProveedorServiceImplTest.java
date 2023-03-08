@@ -5,13 +5,11 @@ import com.minsait.equipo2.msvc.proveedor.models.Producto;
 import com.minsait.equipo2.msvc.proveedor.models.Proveedor;
 import com.minsait.equipo2.msvc.proveedor.repositories.ProductoRepository;
 import com.minsait.equipo2.msvc.proveedor.repositories.ProveedorRepository;
-import com.minsait.equipo2.msvc.proveedor.services.ProveedorServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -39,7 +37,7 @@ public class ProveedorServiceImplTest {
         assertTrue(proveedor.getId().equals(Datos.crearProveedor().get().getId()));
         assertTrue(proveedor.getNombre().equals(Datos.crearProveedor().get().getNombre()));
         assertTrue(proveedor.getCantidad_productos().equals(Datos.crearProveedor().get().getCantidad_productos()));
-        assertTrue(proveedor.getPedidos().equals(Datos.crearProveedor().get().getPedidos()));
+        assertTrue(proveedor.getEnvios().equals(Datos.crearProveedor().get().getEnvios()));
     }
 
     /**

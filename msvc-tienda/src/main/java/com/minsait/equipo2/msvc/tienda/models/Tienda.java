@@ -1,13 +1,10 @@
 package com.minsait.equipo2.msvc.tienda.models;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @Data
@@ -19,21 +16,16 @@ public class Tienda implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "nombre_tienda")
+    @Column(name = "nombre_tienda", nullable = false)
     private String nombreTienda;
-    @Column(name = "direccion_tienda")
+    @Column(name = "direccion_tienda", nullable = false)
     private String direccionTienda;
-    /*@Column(name = "cantidad_producto")
-    private Producto cantidadProducto;*/
-    @Column(name = "cantidad_productos")
+    @Column(name = "cantidad_productos", nullable = false)
     private Integer cantidadProductos;
-    @Column(name = "envios")
+    @Column(name = "envios", nullable = false)
     private int envios;
 
-   public void envio(){
-
+   public void actualizarEnvio(){
        this.envios+=1;
     }
-
-
 }
